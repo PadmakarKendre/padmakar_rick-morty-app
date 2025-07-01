@@ -5,6 +5,7 @@ import {
   RootRoute,
 } from '@tanstack/react-router'
 import { CharacterListPage } from './pages/CharacterListPage'
+import { CharacterDetailPage } from './pages/CharacterDetailPage'
 
 const rootRoute = new RootRoute({
   component: () => <Outlet />,
@@ -14,7 +15,15 @@ const characterListRoute = new Route({
   path: '/',
   component: CharacterListPage,
 })
-const routeTree = rootRoute.addChildren([characterListRoute])
+const characterDetailRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/character/$id',
+  component: CharacterDetailPage,
+})
+const routeTree = rootRoute.addChildren([
+  characterListRoute,
+  characterDetailRoute,
+])
 
 export const router = new Router({ routeTree })
 
