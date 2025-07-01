@@ -2,13 +2,7 @@ import React from 'react'
 import { useParams } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { Character } from '../types'
-
-const fetchCharacter = async (id: string): Promise<Character> => {
-  // Always fetch from network
-  const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`, { cache: 'reload' })
-  if (!res.ok) throw new Error('Network error')
-  return res.json()
-}
+import { fetchCharacter } from '../api'
 
 export const CharacterDetailPage: React.FC = () => {
   const { id } = useParams({ strict: false }) as { id: string }
@@ -17,7 +11,7 @@ export const CharacterDetailPage: React.FC = () => {
     queryFn: () => fetchCharacter(id),
     enabled: !!id,
     staleTime: 0,
-    gcTime: 0, // Remove from cache immediately (React Query v5)
+      gcTime: 0,
   })
 
   if (isPending) return <p>Loading character...</p>

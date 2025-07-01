@@ -5,7 +5,7 @@ import { CharactersResponse } from '../types'
 import { CharacterTable } from '../components/CharacterTable'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 
-interface CharacterListSearch {
+type CharacterListSearch = {
   page?: number
 }
 
